@@ -1,0 +1,66 @@
+{
+  "name": "template",
+  "type": "module",
+  "version": "0.0.0",
+  "description": "a lib template for typescript",
+  "author": {
+    "name": "qingshaner",
+    "url": "https://github.com/Jon-a-than"
+  },
+  "license": "ISC",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": "^22.18.0 || ^24.11.0 || >=26.0.0",
+    "pnpm": ">=12.0.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "scripts": {
+    "build": "tsdown",
+    "changeset-version": "changeset version",
+    "changeset-publish": "changeset publish",
+    "check": "biome check . --write",
+    "check:cspell": "cspell . --no-summary --no-progress --gitignore",
+    "check:type": "tsc --noEmit",
+    "check:knip": "knip",
+    "prepare": "simple-git-hooks",
+    "test": "vitest run",
+    "test:cov": "vitest run --coverage"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.5.14",
+    "@changesets/cli": "^3.0.3",
+    "@qingshaner/devtools": "^0.0.3",
+    "@types/node": "^26.6.1",
+    "@vitest/coverage-v8": "^5.0.1",
+    "cspell": "^10.3.3",
+    "knip": "^6.35.1",
+    "nano-staged": "^1.0.2",
+    "simple-git-hooks": "^2.14.0",
+    "tsdown": "^0.23.0",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.1"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm nano-staged",
+    "pre-push": "pnpm run '/^(test|check.*)$/'"
+  },
+  "nano-staged": {
+    "*": "pnpm cspell --no-summary --no-progress --no-must-find-files --file-list",
+    "*.{json,jsonc,js,jsx,cjs,mjs,ts,tsx,cts,mts,html,svg,css,vue}": "pnpm biome check --fix --files-ignore-unknown=true --no-errors-on-unmatched"
+  },
+  "packageManager": "pnpm@12.4.1+sha512.2e81e399d73fe8390dab25e06aa788ab7a5908248d2f5a370f82b481147a6a7a367bf8048f9a6fdb6460f21a66f0542dedb8b94ca2c8723596741920b1656d4c"
+}
