@@ -16,4 +16,6 @@ ignorePaths:
   - snapshot.json
 
 words:
+  - giget
+  - jwkss
   - pglite

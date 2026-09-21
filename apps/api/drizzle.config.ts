@@ -6,7 +6,7 @@ import * as v from 'valibot'
 
 void ['.env', '.env.local'].forEach((path) => {
   try {
-    loadEnvFile(resolve(path))
+    loadEnvFile(resolve(import.meta.dirname, path))
   } catch (_e) {}
 })
 

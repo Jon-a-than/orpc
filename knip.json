@@ -1,12 +1,13 @@
 {
   "$schema": "node_modules/knip/schema.json",
   "drizzle": true,
+  "nitro": true,
   "tags": ["-lintignore"],
   "vitest": true,
   "workspaces": {
     "apps/*": {
-      "entry": ["src/index.ts", "src/plugins/*.ts"],
-      "project": ["nitro.config.ts", "src/**/*.ts"]
+      "entry": ["src/plugins/*.ts", "src/error.ts"],
+      "project": ["src/**/*.ts"]
     },
     "packages/*": {
       "entry": ["src/index.ts"]

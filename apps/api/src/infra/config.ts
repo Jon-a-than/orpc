@@ -52,7 +52,7 @@ const readConfig = async () => {
           configFile: 'nitro.config',
           cwd: resolve(import.meta.dirname, '../..'),
           dotenv: {
-            fileName: ['.env', '.env.local']
+            fileName: ['.env.example', '.env']
           },
           giget: false,
           rcFile: false
