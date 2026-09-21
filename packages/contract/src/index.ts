@@ -2,13 +2,20 @@ import { oc } from '@orpc/contract'
 import { openapi } from '@orpc/openapi'
 import * as v from 'valibot'
 
-const base = oc.meta(
-  openapi({
-    inputStructure: 'detailed',
-    requestBodyHint: 'json',
-    responseBodyHint: 'json'
+const base = oc
+  .meta(
+    openapi({
+      inputStructure: 'detailed',
+      requestBodyHint: 'json',
+      responseBodyHint: 'json'
+    })
+  )
+  .errors({
+    'FORBIDDEN::REQUIRE_LOGIN': {
+      data: v.void(),
+      message: 'You must be logged in to access this resource'
+    }
   })
-)
 
 const users = base.meta(
   openapi({
@@ -105,3 +112,5 @@ export const contract = {
       })
     )
 }
+
+export { type ErrorCode, ErrorStatusMap } from './error-status-map'

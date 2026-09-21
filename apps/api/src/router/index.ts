@@ -3,6 +3,8 @@ import { contract } from '@qingshaner/contract'
 
 import { requireSession } from '../middlewares'
 
+// import { requireSession } from '../middlewares'
+
 interface AppContext extends Context {
   reqHeaders: Headers
 }
@@ -14,8 +16,8 @@ const base = implementer.$context<AppContext>()
 const ping = base.ping.handler(() => {
   return { message: 'pong' }
 })
-const users = base.users.use(requireSession).handler(({ errors, context }) => {
-  console.log('context', context)
+const users = base.users.use(requireSession).handler(({ errors }) => {
+  // return { avatar: '1', username: 'users' }
   throw errors['FORBIDDEN::USER_NOT_FOUND']()
 })
 

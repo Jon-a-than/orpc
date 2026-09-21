@@ -38,6 +38,9 @@
     "type": "git",
     "url": "https://github.com/tsingshaner/orpc.git"
   },
+  "scripts": {
+    "gen-error-status-map": "node ./scripts/generate-error-status-map.ts"
+  },
   "type": "module",
   "types": "dist/index.d.ts",
   "version": "0.0.0"

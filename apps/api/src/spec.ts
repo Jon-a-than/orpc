@@ -1,5 +1,6 @@
 import { OpenAPIGenerator } from '@orpc/openapi'
 import { ValibotToJsonSchemaConverter } from '@orpc/valibot'
+import { ErrorStatusMap } from '@qingshaner/contract'
 
 import { router } from './router'
 
@@ -32,7 +33,8 @@ export const generateOpenAPISpec = async (): Promise<Response> => {
         },
         security: [],
         servers: [{ url: apiPrefix }]
-      }
+      },
+      errorStatusMap: ErrorStatusMap
     })
   )
 }

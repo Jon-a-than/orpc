@@ -1,5 +1,8 @@
+import './error-code.d.ts'
+
 import { OpenAPIHandler } from '@orpc/openapi/fetch'
 import { onError } from '@orpc/server'
+import { ErrorStatusMap } from '@qingshaner/contract'
 import { AppContextPlugin } from '@qingshaner/utility-orpc'
 
 import type { ServerRequest } from 'nitro/types'
@@ -10,16 +13,18 @@ import { router } from './router'
 import { apiPrefix, generateOpenAPISpec } from './spec'
 
 const app = new OpenAPIHandler(router, {
+  errorStatusMap: ErrorStatusMap,
   interceptors: [
-    onError((error, { request }) => {
+    onError((error, { request, context }) => {
       const e = error instanceof Error ? error : new Error('Unknown error', { cause: error })
-      const url = new URL(request.url)
+      const url = new URL(`http://localhost${request.url}`)
       logger.error(e.message, {
         ...e,
         headers: request.headers,
         method: request.method,
-        pathname: url?.pathname,
-        query: url?.search,
+        pathname: url.pathname,
+        query: url.search,
+        requestId: context?.requestId,
         stack: e.stack
       })
     })
