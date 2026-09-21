@@ -30,7 +30,7 @@ export const generateOpenAPISpec = async (): Promise<Response> => {
           title: 'Orpc Playground',
           version: '1.0.0'
         },
-        security: [{ bearerAuth: [] }],
+        security: [],
         servers: [{ url: apiPrefix }]
       }
     })

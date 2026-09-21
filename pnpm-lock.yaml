@@ -201,7 +201,7 @@ importers:
         version: 7.0.2
       vitest:
         specifier: ^5.0.1
-        version: 5.0.1(@types/node@26.6.1)(@vitest/coverage-v8@5.0.1)(vite@8.3.0(@types/node@26.6.1)(jiti@2.7.0)(yaml@2.9.1))
+        version: 5.0.1(@opentelemetry/api@1.9.1)(@types/node@26.6.1)(@vitest/coverage-v8@5.0.1)(vite@8.3.0(@types/node@26.6.1)(jiti@2.7.0)(yaml@2.9.1))
 
   apps/api:
     dependencies:
@@ -220,6 +220,9 @@ importers:
       '@qingshaner/contract':
         specifier: workspace:*
         version: link:../../packages/contract
+      '@qingshaner/utility-orpc':
+        specifier: ^0.1.0
+        version: 0.1.0(@orpc/server@2.0.0-beta.36(crossws@0.4.12(srvx@1.0.5)))(typescript@7.0.2)
       valibot:
         specifier: ^1.5.0
         version: 1.5.0(typescript@7.0.2)
@@ -670,6 +673,10 @@ packages:
   '@openapi-spec/types@0.1.0':
     resolution: {integrity: sha512-5m9GUj5ekwmJ5uXH0yctarqLGckGc8X7pX65dirukZDUAGmrUx5lKovvWA7YvEBKd480Q7R2oG3nE5C+SoVgNw==}
 
+  '@opentelemetry/api@1.9.1':
+    resolution: {integrity: sha512-gLyJlPHPZYdAk1JENA9LeHejZe1Ti77/pTeFm/nMXmQH/HFZlcS/O2XJB+L8fkbrNSqhdtlvjBVjxwUYanNH5Q==}
+    engines: {node: '>=8.0.0'}
+
   '@orpc/client@2.0.0-beta.36':
     resolution: {integrity: sha512-BP1V6PRS7/7tEimYtJH8t4yTcS85mX9riUnfRLtslLayIHFIrwviw1iFY0Y/+yLwmkG+fw83k4ZQxz7/9aSF7g==}
 
@@ -952,6 +959,16 @@ packages:
     engines: {node: '>=22.0.0', pnpm: '>=11.0.0'}
     peerDependencies:
       '@biomejs/biome': ^2.5.3
+
+  '@qingshaner/utility-orpc@0.1.0':
+    resolution: {integrity: sha512-DsdK+lLt7ctnOrIMnqGNBdvGZnWRvcECmXwuw2r0foNn6QlHSWYqRMKX43LhG605tlh4Q0gg6iDmFdITZ1leLA==, tarball: https://registry.npmjs.org/@qingshaner/utility-orpc/-/utility-orpc-0.1.0.tgz}
+    engines: {node: ^22.18.0 || ^24.11.0 || >=26.0.0, pnpm: '>=12.0.0'}
+    peerDependencies:
+      '@orpc/server': '>=2.0.0-beta.36'
+      typescript: '>=7.0.2'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
 
   '@quansync/fs@1.1.0':
     resolution: {integrity: sha512-qAPG/t3HqML1TlN7sY/pTbEjzFVAKsMjNNMGheyDosro+kT4iw2KCUoHcVdmliwWjorm4elZbgNQyU2eD97eDg==}
@@ -2540,6 +2557,8 @@ snapshots:
 
   '@openapi-spec/types@0.1.0': {}
 
+  '@opentelemetry/api@1.9.1': {}
+
   '@orpc/client@2.0.0-beta.36':
     dependencies:
       '@orpc/shared': 2.0.0-beta.36
@@ -2739,6 +2758,13 @@ snapshots:
     dependencies:
       '@biomejs/biome': 2.5.14
 
+  '@qingshaner/utility-orpc@0.1.0(@orpc/server@2.0.0-beta.36(crossws@0.4.12(srvx@1.0.5)))(typescript@7.0.2)':
+    dependencies:
+      '@opentelemetry/api': 1.9.1
+      '@orpc/server': 2.0.0-beta.36(crossws@0.4.12(srvx@1.0.5))
+    optionalDependencies:
+      typescript: 7.0.2
+
   '@quansync/fs@1.1.0':
     dependencies:
       quansync: 1.0.0
@@ -2918,7 +2944,7 @@ snapshots:
       obug: 2.2.1
       std-env: 4.2.0
       tinyrainbow: 3.1.1
-      vitest: 5.0.1(@types/node@26.6.1)(@vitest/coverage-v8@5.0.1)(vite@8.3.0(@types/node@26.6.1)(jiti@2.7.0)(yaml@2.9.1))
+      vitest: 5.0.1(@opentelemetry/api@1.9.1)(@types/node@26.6.1)(@vitest/coverage-v8@5.0.1)(vite@8.3.0(@types/node@26.6.1)(jiti@2.7.0)(yaml@2.9.1))
 
   '@vitest/istanbul-lib-coverage@1.0.1': {}
 
@@ -3591,7 +3617,7 @@ snapshots:
       jiti: 2.7.0
       yaml: 2.9.1
 
-  vitest@5.0.1(@types/node@26.6.1)(@vitest/coverage-v8@5.0.1)(vite@8.3.0(@types/node@26.6.1)(jiti@2.7.0)(yaml@2.9.1)):
+  vitest@5.0.1(@opentelemetry/api@1.9.1)(@types/node@26.6.1)(@vitest/coverage-v8@5.0.1)(vite@8.3.0(@types/node@26.6.1)(jiti@2.7.0)(yaml@2.9.1)):
     dependencies:
       '@types/chai': 5.2.3
       '@vitest/mocker': 5.0.1(vite@8.3.0(@types/node@26.6.1)(jiti@2.7.0)(yaml@2.9.1))
@@ -3608,6 +3634,7 @@ snapshots:
       vite: 8.3.0(@types/node@26.6.1)(jiti@2.7.0)(yaml@2.9.1)
       why-is-node-running: 2.3.0
     optionalDependencies:
+      '@opentelemetry/api': 1.9.1
       '@types/node': 26.6.1
       '@vitest/coverage-v8': 5.0.1(vitest@5.0.1)
     transitivePeerDependencies:

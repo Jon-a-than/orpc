@@ -12,6 +12,7 @@
     "@orpc/server": "2.0.0-beta.36",
     "@orpc/valibot": "2.0.0-beta.36",
     "@qingshaner/contract": "workspace:*",
+    "@qingshaner/utility-orpc": "^0.1.0",
     "valibot": "^1.5.0"
   },
   "description": "api gateway",

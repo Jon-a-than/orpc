@@ -5,3 +5,6 @@ packages:
 allowBuilds:
   '@biomejs/biome': true
   simple-git-hooks: true
+
+minimumReleaseAgeExclude:
+  - '@qingshaner/utility-orpc@0.1.0'
