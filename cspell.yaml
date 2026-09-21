@@ -3,6 +3,7 @@
 import: '@qingshaner/devtools/cspell'
 
 ignorePaths:
+  - '*.sql'
   - .gitignore
   - package-lock.json
   - pnpm-lock.yaml
@@ -12,3 +13,7 @@ ignorePaths:
   - bun.lock.json
   - bun.lock.yaml
   - bun.lock.json
+  - snapshot.json
+
+words:
+  - pglite

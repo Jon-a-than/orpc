@@ -7,13 +7,17 @@ const ROOT = import.meta.dirname
 export default defineConfig({
   resolve: {
     alias: {
-      '@': resolve(ROOT, 'src')
+      '@qingshaner/contract': resolve(ROOT, 'packages/contract/src')
     }
   },
   test: {
-    coverage: {
-      include: ['src/', '!src/**/*.{test,spec}.ts']
-    },
-    root: ROOT
+    projects: [
+      {
+        test: {
+          include: ['apps/api/src/**/*.test.ts'],
+          name: 'api'
+        }
+      }
+    ]
   }
 })

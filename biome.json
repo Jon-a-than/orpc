@@ -1,7 +1,23 @@
 {
   "$schema": "node_modules/@biomejs/biome/configuration_schema.json",
   "extends": ["@qingshaner/devtools/biome"],
+  "files": {
+    "includes": ["**/*", "!**/*/drizzle/**/*.json"]
+  },
   "overrides": [
+    {
+      "includes": ["**/*.test.ts", "**/*.bench.ts"],
+      "linter": {
+        "rules": {
+          "correctness": {
+            "noUndeclaredDependencies": "off"
+          },
+          "nursery": {
+            "useExplicitType": "off"
+          }
+        }
+      }
+    },
     {
       "assist": {
         "enabled": false

@@ -6,5 +6,5 @@
     "target": "ESNext"
   },
   "extends": "@qingshaner/devtools/tsconfig/base.json",
-  "include": ["../*.config.ts"]
+  "include": ["../**/*.config.ts", "../apps/api/config.ts"]
 }

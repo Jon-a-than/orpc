@@ -52,8 +52,8 @@ export const contract = {
       .meta(
         openapi({
           description: 'List all tasks',
-          method: 'GET',
-          operationId: 'getTasks',
+          method: 'QUERY',
+          operationId: 'queryTasks',
           path: '/tasks'
         })
       )
@@ -80,8 +80,8 @@ export const contract = {
   users: users
     .meta(
       openapi({
-        method: 'GET',
-        operationId: 'getUserProfile',
+        method: 'QUERY',
+        operationId: 'queryUserProfile',
         path: '/users'
       })
     )

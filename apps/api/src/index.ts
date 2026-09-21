@@ -4,15 +4,23 @@ import { AppContextPlugin } from '@qingshaner/utility-orpc'
 
 import type { ServerRequest } from 'nitro/types'
 
-import { logger } from './logger'
-import { router } from './routes'
+import { logger } from './infra'
+import { authBasePath, getAuth } from './middlewares'
+import { router } from './router'
 import { apiPrefix, generateOpenAPISpec } from './spec'
 
 const app = new OpenAPIHandler(router, {
   interceptors: [
-    onError((error) => {
-      logger.error({
-        error
+    onError((error, { request }) => {
+      const e = error instanceof Error ? error : new Error('Unknown error', { cause: error })
+      const url = new URL(request.url)
+      logger.error(e.message, {
+        ...e,
+        headers: request.headers,
+        method: request.method,
+        pathname: url?.pathname,
+        query: url?.search,
+        stack: e.stack
       })
     })
   ],
@@ -32,8 +40,15 @@ export default {
       return generateOpenAPISpec()
     }
 
+    if (req._url?.pathname.startsWith(authBasePath) && (req.method === 'POST' || req.method === 'GET')) {
+      return (await getAuth()).handler(req)
+    }
+
     const { matched, response } = await app.handle(req, {
-      context: {},
+      context: {
+        ...req.context,
+        reqHeaders: req.headers
+      },
       prefix: apiPrefix
     })
 

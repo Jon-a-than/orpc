@@ -1,4 +1,15 @@
 {
-  "$schema": "https://unpkg.com/knip@6/schema.json",
-  "tags": ["-lintignore"]
+  "$schema": "node_modules/knip/schema.json",
+  "drizzle": true,
+  "tags": ["-lintignore"],
+  "vitest": true,
+  "workspaces": {
+    "apps/*": {
+      "entry": ["src/index.ts", "src/plugins/*.ts"],
+      "project": ["nitro.config.ts", "src/**/*.ts"]
+    },
+    "packages/*": {
+      "entry": ["src/index.ts"]
+    }
+  }
 }

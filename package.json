@@ -38,6 +38,7 @@
     "check:knip": "knip",
     "dev": "pnpm --filter=api dev",
     "prepare": "simple-git-hooks",
+    "preview": "pnpm --filter=api preview",
     "test": "vitest run",
     "test:cov": "vitest run --coverage"
   },

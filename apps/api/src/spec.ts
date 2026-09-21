@@ -1,7 +1,7 @@
 import { OpenAPIGenerator } from '@orpc/openapi'
 import { ValibotToJsonSchemaConverter } from '@orpc/valibot'
 
-import { router } from './routes'
+import { router } from './router'
 
 export const apiPrefix = '/api'
 

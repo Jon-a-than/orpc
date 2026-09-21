@@ -1,10 +1,16 @@
 dist
 cache
 .cache
+.data/**/*
+!.data/.gitkeep
 .logs
 .output
 coverage
 node_modules
+
+.env
+.env.*
+!.env.example
 
 .eslintcache
 .changeset/README.md

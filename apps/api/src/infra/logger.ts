@@ -13,13 +13,29 @@ import {
 
 type Category = 'orm' | 'auth' | (string & {})
 
-const name = 'app'
+const name = 'api'
 
 const consoleSink = import.meta.dev
   ? getConsoleSink({
       formatter: getAnsiColorFormatter({
         category: ':',
-        format: ({ timestamp, level, category, message }) => `${level} ${timestamp} ${category} ${message}`,
+        format: ({ timestamp, level, category, message, record }) => {
+          const { stack, ...props } = record.properties
+
+          return `${level} ${timestamp} ${category} ${message}\n${props ? JSON.stringify(props, null, 2) : ''}${
+            stack
+              ? `\n${
+                  typeof stack === 'string'
+                    ? stack
+                        ?.split('\n')
+                        .slice(1)
+                        .map((line) => `  ${line.trim()}`)
+                        .join('\n')
+                    : stack
+                }`
+              : ''
+          }`
+        },
         level: (level) => level,
         timestamp: 'time'
       }),
