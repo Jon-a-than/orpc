@@ -1,6 +1,8 @@
 dist
 cache
 .cache
+.logs
+.output
 coverage
 node_modules
 

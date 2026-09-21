@@ -1,3 +1,7 @@
+packages:
+  - 'apps/*'
+  - 'packages/*'
+
 allowBuilds:
   '@biomejs/biome': true
   simple-git-hooks: true

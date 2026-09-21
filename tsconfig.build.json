@@ -1,10 +1,14 @@
 {
   "compilerOptions": {
     "lib": ["ESNext"],
-
+    "paths": {
+      "@qingshaner/api": ["./apps/api/src/*"],
+      "@qingshaner/contract": ["./packages/contract/src/*"]
+    },
     "rootDir": ".",
     "target": "ESNext"
   },
+  "exclude": ["node_modules", "dist", "build", "coverage"],
   "extends": "@qingshaner/devtools/tsconfig/base.json",
-  "include": ["./src"]
+  "include": ["./apps/*/src", "./packages/*/src"]
 }

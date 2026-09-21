@@ -29,13 +29,14 @@
     "registry": "https://registry.npmjs.org/"
   },
   "scripts": {
-    "build": "tsdown",
+    "build": "pnpm --filter=api build",
     "changeset-version": "changeset version",
     "changeset-publish": "changeset publish",
     "check": "biome check . --write",
     "check:cspell": "cspell . --no-summary --no-progress --gitignore",
     "check:type": "tsc --noEmit",
     "check:knip": "knip",
+    "dev": "pnpm --filter=api dev",
     "prepare": "simple-git-hooks",
     "test": "vitest run",
     "test:cov": "vitest run --coverage"
@@ -47,7 +48,7 @@
     "@types/node": "^26.6.1",
     "@vitest/coverage-v8": "^5.0.1",
     "cspell": "^10.3.3",
-    "knip": "^6.35.1",
+    "knip": "^6.36.0",
     "nano-staged": "^1.0.2",
     "simple-git-hooks": "^2.14.0",
     "tsdown": "^0.23.0",

@@ -1,14 +1,15 @@
 {
   "compilerOptions": {
-    "lib": ["ES2023", "DOM"],
+    "lib": ["ESNext"],
     "paths": {
-      "@/*": ["../src/*"]
+      "@qingshaner/api": ["../apps/api/src/*"],
+      "@qingshaner/contract": ["../packages/contract/src/*"]
     },
     "resolveJsonModule": true,
     "rootDir": "..",
     "target": "ESNext",
-    "types": []
+    "types": ["node"]
   },
   "extends": "@qingshaner/devtools/tsconfig/base.json",
-  "include": ["../src", "../test"]
+  "include": ["../apps/*/src", "../packages/*/src", "env.d.ts"]
 }

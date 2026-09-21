@@ -1,0 +1,54 @@
+{
+  "author": {
+    "name": "qingshaner",
+    "url": "https://github.com/Jon-a-than"
+  },
+  "bugs": {
+    "url": "https://github.com/tsingshaner/orpc/issues"
+  },
+  "dependencies": {
+    "@logtape/logtape": "^2.3.5",
+    "@orpc/openapi": "^2.0.0-beta.36",
+    "@orpc/server": "2.0.0-beta.36",
+    "@orpc/valibot": "2.0.0-beta.36",
+    "@qingshaner/contract": "workspace:*",
+    "valibot": "^1.5.0"
+  },
+  "description": "api gateway",
+  "devDependencies": {
+    "nitro": "3.0.260903-beta"
+  },
+  "engines": {
+    "node": "^22.18.0 || ^24.11.0 || >=26.0.0",
+    "pnpm": ">=12.0.0"
+  },
+  "exports": {
+    ".": {
+      "default": "./dist/index.js",
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "homepage": "https://github.com/tsingshaner/orpc#readme",
+  "license": "ISC",
+  "main": "dist/index.js",
+  "name": "@qingshaner/api",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tsingshaner/orpc.git"
+  },
+  "scripts": {
+    "build": "nitro build",
+    "dev": "nitro dev"
+  },
+  "type": "module",
+  "types": "dist/index.d.ts",
+  "version": "0.0.0"
+}
