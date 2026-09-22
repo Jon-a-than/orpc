@@ -3,8 +3,9 @@
     "lib": ["ESNext"],
 
     "rootDir": "..",
-    "target": "ESNext"
+    "target": "ESNext",
+    "types": ["node"]
   },
   "extends": "@qingshaner/devtools/tsconfig/base.json",
-  "include": ["../**/*.config.ts", "../apps/api/config.ts"]
+  "include": ["../**/*.config.ts", "../apps/api/config.ts", "../packages/*/scripts/**/*.ts"]
 }

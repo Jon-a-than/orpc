@@ -1,5 +1,3 @@
-import './error-code.d.ts'
-
 import { OpenAPIHandler } from '@orpc/openapi/fetch'
 import { onError } from '@orpc/server'
 import { ErrorStatusMap } from '@qingshaner/contract'
@@ -7,6 +5,7 @@ import { AppContextPlugin } from '@qingshaner/utility-orpc'
 
 import type { ServerRequest } from 'nitro/types'
 
+import './error-code.d.ts'
 import { logger } from './infra'
 import { authBasePath, getAuth } from './middlewares'
 import { router } from './router'

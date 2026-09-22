@@ -29,21 +29,17 @@
   },
   "editor.codeActionsOnSave": {
     "source.fixAll.biome": "explicit",
-    "source.fixAll.eslint": "explicit",
     "source.sortImports": "never"
   },
   "editor.defaultFormatter": "dbaeumer.vscode-eslint",
   "editor.formatOnSave": true,
   "editor.formatOnSaveMode": "file",
-
-  "eslint.options": {
-    "flags": ["unstable_ts_config"]
-  },
+  "eslint.enable": false,
   "files.associations": { "*.json": "jsonc" },
-
+  "files.readonlyInclude": {
+    "**/*.gen.ts": true
+  },
+  "js/ts.tsdk.path": "node_modules\\typescript\\lib",
   "prettier.enable": false,
-
-  "typescript.tsdk": "node_modules\\typescript\\lib",
-
   "yaml.format.singleQuote": true
 }

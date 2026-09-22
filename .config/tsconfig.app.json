@@ -2,8 +2,8 @@
   "compilerOptions": {
     "lib": ["ESNext"],
     "paths": {
-      "@qingshaner/api": ["../apps/api/src/*"],
-      "@qingshaner/contract": ["../packages/contract/src/*"]
+      "@qingshaner/api/*": ["../apps/api/src/*"],
+      "@qingshaner/contract": ["../packages/contract/src/index.ts"]
     },
     "resolveJsonModule": true,
     "rootDir": "..",

@@ -9,7 +9,7 @@ interface AppContext extends Context {
   reqHeaders: Headers
 }
 
-const implementer = implement(contract)
+const implementer = implement({ ping: contract.ping, users: contract.users })
 
 const base = implementer.$context<AppContext>()
 

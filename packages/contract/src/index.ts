@@ -14,6 +14,10 @@ const base = oc
     'FORBIDDEN::REQUIRE_LOGIN': {
       data: v.void(),
       message: 'You must be logged in to access this resource'
+    },
+    'NOT_IMPLEMENTED::FEATURE_NOT_IMPLEMENTED': {
+      data: v.void(),
+      message: 'This feature is not implemented yet'
     }
   })
 
@@ -113,4 +117,4 @@ export const contract = {
     )
 }
 
-export { type ErrorCode, ErrorStatusMap } from './error-status-map'
+export { type ErrorCode, ErrorStatusMap } from './error-status-map.gen'

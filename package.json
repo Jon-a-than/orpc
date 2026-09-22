@@ -34,7 +34,7 @@
     "changeset-publish": "changeset publish",
     "check": "biome check . --write",
     "check:cspell": "cspell . --no-summary --no-progress --gitignore",
-    "check:type": "tsc --noEmit",
+    "check:type": "tsc --build --noEmit",
     "check:knip": "knip",
     "dev": "pnpm --filter=api dev",
     "prepare": "simple-git-hooks",

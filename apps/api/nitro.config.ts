@@ -1,4 +1,10 @@
+import { type FSWatcher, watch } from 'node:fs'
+
 import { defineConfig } from 'nitro'
+
+import { errorSourceDirs, generateErrorStatusMap } from '../../packages/contract/scripts/generate-error-status-map'
+
+const errorWatchers: FSWatcher[] = []
 
 export default defineConfig({
   $development: {
@@ -21,7 +27,36 @@ export default defineConfig({
     external: ['giget', 'chokidar'],
     output: {
       minify: true
-    }
+    },
+    plugins: [
+      {
+        buildStart() {
+          generateErrorStatusMap()
+          if (this.meta.watchMode && errorWatchers.length === 0) {
+            for (const directory of errorSourceDirs) {
+              const watcher = watch(directory, { recursive: true }, (_, filename) => {
+                if (filename && (!filename.endsWith('.ts') || filename.endsWith('.gen.ts'))) {
+                  return
+                }
+                try {
+                  generateErrorStatusMap()
+                } catch (error) {
+                  this.warn(`Error status map generation failed: ${error}`)
+                }
+              })
+              watcher.on('error', (error) => this.warn(`Error status map watcher failed: ${error}`))
+              errorWatchers.push(watcher)
+            }
+          }
+        },
+        closeWatcher() {
+          for (const watcher of errorWatchers.splice(0)) {
+            watcher.close()
+          }
+        },
+        name: 'error-status-map'
+      }
+    ]
   },
   runtimeConfig: {
     auth: {
