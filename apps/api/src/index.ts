@@ -40,8 +40,13 @@ const app = new OpenAPIHandler(router, {
 export default {
   async fetch(req: ServerRequest): Promise<Response> {
     const isDevOrPrerender = import.meta.dev || import.meta.prerender
-    if (isDevOrPrerender && req.method === 'GET' && req._url?.pathname === '/spec.json') {
-      return generateOpenAPISpec()
+    if (isDevOrPrerender && req.method === 'GET') {
+      if (req._url?.pathname === '/spec.json') {
+        return generateOpenAPISpec()
+      }
+      if (req._url?.pathname === '/auth-spec.json') {
+        return Response.json(await (await getAuth()).api.generateOpenAPISchema())
+      }
     }
 
     if (req._url?.pathname.startsWith(authBasePath) && (req.method === 'POST' || req.method === 'GET')) {

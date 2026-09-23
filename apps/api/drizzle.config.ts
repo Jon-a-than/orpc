@@ -4,7 +4,7 @@ import { loadEnvFile } from 'node:process'
 import { defineConfig } from 'drizzle-kit'
 import * as v from 'valibot'
 
-void ['.env', '.env.local'].forEach((path) => {
+void ['.env.example', '.env'].forEach((path) => {
   try {
     loadEnvFile(resolve(import.meta.dirname, path))
   } catch (_e) {}

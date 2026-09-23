@@ -20,7 +20,8 @@ export default defineConfig({
   builder: 'rolldown',
   errorHandler: './src/error.ts',
   prerender: {
-    routes: ['/spec.json']
+    failOnError: true,
+    routes: ['/spec.json', '/auth-spec.json']
   },
   preset: 'node_server',
   rolldownConfig: {

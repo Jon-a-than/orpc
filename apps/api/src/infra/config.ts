@@ -46,30 +46,32 @@ const configSchema = v.object({
 let $config: Promise<v.InferOutput<typeof configSchema>>
 
 const readConfig = async () => {
-  const config = !import.meta.nitro
-    ? (
-        await loadConfig({
-          configFile: 'nitro.config',
-          cwd: resolve(import.meta.dirname, '../..'),
-          dotenv: {
-            fileName: ['.env.example', '.env']
-          },
-          giget: false,
-          rcFile: false
-        })
-      ).config.runtimeConfig
-    : // biome-ignore lint/correctness/useHookAtTopLevel: not react hooks
-      useRuntimeConfig()
+  const config =
+    import.meta.prerender || !import.meta.nitro
+      ? (
+          await loadConfig({
+            configFile: 'nitro.config',
+            cwd: resolve(import.meta.dirname, import.meta.prerender ? '../../..' : '../..'),
+            dotenv: {
+              fileName: ['.env.example', '.env']
+            },
+            giget: false,
+            rcFile: false
+          })
+        ).config.runtimeConfig
+      : // biome-ignore lint/correctness/useHookAtTopLevel: not react hooks
+        useRuntimeConfig()
 
   const result = v.safeParse(configSchema, config)
 
   if (!result.success) {
-    logger.fatal(new Error(`Invalid config: ${JSON.stringify(v.flatten(result.issues))}`), {
+    const error = new Error(`Invalid config: ${JSON.stringify(v.flatten(result.issues))}`)
+    logger.fatal(error, {
       code: 'CONFIG_INVALID',
       position: 'infra.config'
     })
 
-    process.exit(1)
+    throw error
   }
   logger.info('Config loaded successfully', { config: result.output })
 

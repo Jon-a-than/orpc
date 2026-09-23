@@ -6,6 +6,7 @@
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <link href="https://orpc.dev/icon.svg" rel="icon" type="image/svg+xml" />
   </head>
+
   <body>
     <div id="app"></div>
 
@@ -19,7 +20,12 @@
           }
         }
       },
-      url: '/spec.json'
+      showOperationId: true,
+      sources: [
+        { title: 'API', url: '/spec.json' },
+        { title: 'Auth', url: '/auth-spec.json' }
+      ],
+      theme: 'alternate'
     })
     </script>
   </body>

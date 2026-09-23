@@ -1,8 +1,8 @@
 import { ORPCError, os } from '@orpc/server'
 import { measure } from '@qingshaner/utility-orpc'
-import { type Auth, betterAuth } from 'better-auth'
+import { type Auth, type BetterAuthOptions, betterAuth } from 'better-auth'
 import { drizzleAdapter } from 'better-auth/adapters/drizzle'
-import { bearer, jwt } from 'better-auth/plugins'
+import { bearer, jwt, openAPI } from 'better-auth/plugins'
 
 import type { RequestHeadersHandlerPluginContext } from '@orpc/server/plugins'
 
@@ -11,13 +11,16 @@ import { getConfig, getLogger } from '../infra'
 
 export const authBasePath = '/api/auth'
 
-let $auth: ReturnType<typeof createAuth>
+type Options = BetterAuthOptions & {
+  plugins: [ReturnType<typeof bearer>, ReturnType<typeof jwt>, ReturnType<typeof openAPI>]
+}
 
-const createAuth = async (): Promise<Auth<{ basePath?: string }>> => {
+let $auth: Auth<Options>
+
+const getBetterAuthOptions = async (): Promise<Options> => {
   const logger = getLogger('auth')
   const config = await getConfig()
-
-  return betterAuth({
+  return {
     basePath: authBasePath,
     baseURL: config.baseURL,
     database: drizzleAdapter(await getDatabase(), {
@@ -34,17 +37,17 @@ const createAuth = async (): Promise<Auth<{ basePath?: string }>> => {
         logger[level](message, properties)
       }
     },
-    plugins: [bearer(), jwt()],
+    plugins: [bearer(), jwt(), openAPI()],
     secret: config.auth.secret,
     socialProviders: {
       github: config.auth.github
     }
-  })
+  } as const satisfies BetterAuthOptions
 }
 
-export const getAuth = (): typeof $auth => {
+export const getAuth = async (): Promise<typeof $auth> => {
   if (!$auth) {
-    $auth = createAuth()
+    $auth = betterAuth(await getBetterAuthOptions())
   }
 
   return $auth
