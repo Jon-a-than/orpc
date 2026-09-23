@@ -9,7 +9,7 @@
   "dependencies": {
     "@orpc/contract": "^2.0.0-beta.36",
     "@orpc/openapi": "2.0.0-beta.36",
-    "valibot": "^1.5.0"
+    "zod": "^4.6.5"
   },
   "description": "api contract with openapi",
   "engines": {

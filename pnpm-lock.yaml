@@ -223,9 +223,9 @@ importers:
       '@orpc/server':
         specifier: 2.0.0-beta.36
         version: 2.0.0-beta.36(crossws@0.4.12(srvx@1.0.5))
-      '@orpc/valibot':
+      '@orpc/zod':
         specifier: 2.0.0-beta.36
-        version: 2.0.0-beta.36(crossws@0.4.12(srvx@1.0.5))(valibot@1.5.0(typescript@7.0.2))
+        version: 2.0.0-beta.36(crossws@0.4.12(srvx@1.0.5))(zod@4.6.5)
       '@qingshaner/contract':
         specifier: workspace:*
         version: link:../../packages/contract
@@ -241,9 +241,9 @@ importers:
       pg:
         specifier: ^8.23.0
         version: 8.23.0
-      valibot:
-        specifier: ^1.5.0
-        version: 1.5.0(typescript@7.0.2)
+      zod:
+        specifier: ^4.6.5
+        version: 4.6.5
     devDependencies:
       '@types/pg':
         specifier: ^8.23.1
@@ -266,9 +266,9 @@ importers:
       '@orpc/openapi':
         specifier: 2.0.0-beta.36
         version: 2.0.0-beta.36(crossws@0.4.12(srvx@1.0.5))
-      valibot:
-        specifier: ^1.5.0
-        version: 1.5.0(typescript@7.0.2)
+      zod:
+        specifier: ^4.6.5
+        version: 4.6.5
 
 packages:
 
@@ -1007,10 +1007,10 @@ packages:
   '@orpc/shared@2.0.0-beta.36':
     resolution: {integrity: sha512-TTRZg+DLqdn/jAe8MXlRq+NjN3G9YdRfHaUopnKsOAiYdm2+3zMR1GoJkrkawHof2urt0cGWmyTPHWpMQTYJYQ==}
 
-  '@orpc/valibot@2.0.0-beta.36':
-    resolution: {integrity: sha512-U2vHDEvfBSN90sVWrGNhrDGzaijw29U6/C1JIMx2tLZKEG+8ATChcaKgGck0Np2Nfk6vaWhERcrl3GxZX25GTw==}
+  '@orpc/zod@2.0.0-beta.36':
+    resolution: {integrity: sha512-LD6T4VoOp2ID3jWfxm+ip35dBOsDr1y7SYETz6s4HxVqndJduHPojcLxxvDq0DJtsXsiucTzkYlWNihVGyDi1A==}
     peerDependencies:
-      valibot: '>=1.5.0'
+      zod: '>=4.5.0'
 
   '@oxc-parser/binding-android-arm-eabi@0.150.0':
     resolution: {integrity: sha512-oQef2Zu4Prz1KLKznz3HqZzU9uVoA5PMoDZuuLmqms7hKmKSAPzlaMnLllJq3t+rgKmfJJ2siPrpZfFrW06btw==}
@@ -1528,11 +1528,6 @@ packages:
     engines: {node: '>=16.20.0'}
     cpu: [x64]
     os: [win32]
-
-  '@valibot/to-json-schema@1.8.0':
-    resolution: {integrity: sha512-a0M+uwCuQZEPAo65NYkFSJ14O5c213KoSZmPdoCfuFvUhfULi4T2Z6Tpjv6lTVMW9RoLm74RpRAjNEa43KcN+g==}
-    peerDependencies:
-      valibot: ^1.5.0
 
   '@vitest/coverage-v8@5.0.1':
     resolution: {integrity: sha512-FRC8ACiudC3dI6MTplzRSYWHDRnIv2IPfbzs4FdoJNsMal/35sWV8hwIfV8ZcqzSPy+uXHeMVONt9CEqtOU17w==}
@@ -3400,11 +3395,11 @@ snapshots:
       radash: 12.1.1
       type-fest: 5.10.0
 
-  '@orpc/valibot@2.0.0-beta.36(crossws@0.4.12(srvx@1.0.5))(valibot@1.5.0(typescript@7.0.2))':
+  '@orpc/zod@2.0.0-beta.36(crossws@0.4.12(srvx@1.0.5))(zod@4.6.5)':
     dependencies:
+      '@openapi-spec/types': 0.1.0
       '@orpc/json-schema': 2.0.0-beta.36(crossws@0.4.12(srvx@1.0.5))
-      '@valibot/to-json-schema': 1.8.0(valibot@1.5.0(typescript@7.0.2))
-      valibot: 1.5.0(typescript@7.0.2)
+      zod: 4.6.5
     transitivePeerDependencies:
       - crossws
       - fastify
@@ -3712,10 +3707,6 @@ snapshots:
 
   '@typescript/typescript-win32-x64@7.0.2':
     optional: true
-
-  '@valibot/to-json-schema@1.8.0(valibot@1.5.0(typescript@7.0.2))':
-    dependencies:
-      valibot: 1.5.0(typescript@7.0.2)
 
   '@vitest/coverage-v8@5.0.1(vitest@5.0.1)':
     dependencies:
@@ -4551,6 +4542,7 @@ snapshots:
   valibot@1.5.0(typescript@7.0.2):
     optionalDependencies:
       typescript: 7.0.2
+    optional: true
 
   verkit@0.4.1: {}
 

@@ -1,6 +1,6 @@
 import { oc } from '@orpc/contract'
 import { openapi } from '@orpc/openapi'
-import * as v from 'valibot'
+import * as z from 'zod/mini'
 
 const base = oc
   .meta(
@@ -12,11 +12,11 @@ const base = oc
   )
   .errors({
     'NOT_IMPLEMENTED::FEATURE_NOT_IMPLEMENTED': {
-      data: v.void(),
+      data: z.void(),
       message: 'This feature is not implemented yet'
     },
     'UNAUTHORIZED::NOT_SIGN_IN': {
-      data: v.void(),
+      data: z.void(),
       message: 'You must be logged in to access this resource'
     }
   })
@@ -33,7 +33,7 @@ export const contract = {
         tags: ['Health Check']
       })
     )
-    .output(v.object({ message: v.string() })),
+    .output(z.object({ message: z.string() })),
   tasks: {
     create: tasks
       .meta(
@@ -45,10 +45,10 @@ export const contract = {
         })
       )
       .input(
-        v.object({
-          body: v.object({
-            description: v.string(),
-            title: v.string()
+        z.object({
+          body: z.object({
+            description: z.string(),
+            title: z.string()
           })
         })
       ),
@@ -62,24 +62,24 @@ export const contract = {
       )
       .errors({
         'FORBIDDEN::TASK_NOT_AUTHOR': {
-          data: v.void(),
+          data: z.void(),
           message: 'You are not the author of this task'
         },
         'NOT_FOUND::TASK_NOT_FOUND': {
-          data: v.void(),
+          data: z.void(),
           message: 'Task not found or has already been deleted'
         }
       })
       .input(
-        v.object({
-          body: v.object({
-            id: v.pipe(v.number(), v.integer(), v.minValue(1, 'id must be a positive integer'))
+        z.object({
+          body: z.object({
+            id: z.number().check(z.int(), z.minimum(1, 'id must be a positive integer'))
           })
         })
       )
       .output(
-        v.object({
-          status: v.literal(true)
+        z.object({
+          status: z.literal(true)
         })
       ),
     list: tasks
@@ -92,22 +92,22 @@ export const contract = {
         })
       )
       .input(
-        v.object({
-          query: v.object({
-            keyword: v.optional(v.string()),
-            page: v.fallback(v.optional(v.pipe(v.number(), v.minValue(1, 'page must be at least 1'))), 1),
-            pageSize: v.fallback(v.optional(v.pipe(v.number(), v.maxValue(100, 'pageSize must be at most 100'))), 10)
+        z.object({
+          query: z.object({
+            keyword: z.optional(z.string()),
+            page: z.catch(z.optional(z.number().check(z.minimum(1, 'page must be at least 1'))), 1),
+            pageSize: z.catch(z.optional(z.number().check(z.maximum(100, 'pageSize must be at most 100'))), 10)
           })
         })
       )
       .output(
-        v.array(
-          v.object({
-            createdAt: v.pipe(v.string(), v.isoTimestamp()),
-            description: v.string(),
-            id: v.number(),
-            title: v.string(),
-            updatedAt: v.pipe(v.string(), v.isoTimestamp())
+        z.array(
+          z.object({
+            createdAt: z.iso.datetime({ offset: true }),
+            description: z.string(),
+            id: z.number(),
+            title: z.string(),
+            updatedAt: z.iso.datetime({ offset: true })
           })
         )
       ),
@@ -121,26 +121,26 @@ export const contract = {
       )
       .errors({
         'FORBIDDEN::TASK_NOT_AUTHOR': {
-          data: v.void(),
+          data: z.void(),
           message: 'You are not the author of this task'
         },
         'NOT_FOUND::TASK_NOT_FOUND': {
-          data: v.void(),
+          data: z.void(),
           message: 'Task not found or has already been deleted'
         }
       })
       .input(
-        v.object({
-          body: v.object({
-            description: v.optional(v.string()),
-            id: v.pipe(v.number(), v.integer(), v.minValue(1, 'id must be a positive integer')),
-            title: v.optional(v.string())
+        z.object({
+          body: z.object({
+            description: z.optional(z.string()),
+            id: z.number().check(z.int(), z.minimum(1, 'id must be a positive integer')),
+            title: z.optional(z.string())
           })
         })
       )
       .output(
-        v.object({
-          status: v.literal(true)
+        z.object({
+          status: z.literal(true)
         })
       )
   }

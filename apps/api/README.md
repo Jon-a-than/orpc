@@ -17,7 +17,7 @@ The default address is `http://localhost:3000`. No separate Contract build is re
 
 ## Environment configuration
 
-Configuration starts in [nitro.config.ts](nitro.config.ts) and is validated and cached by [src/infra/config.ts](src/infra/config.ts). Put environment variables in this module's `.env` file.
+Configuration starts in [nitro.config.ts](nitro.config.ts) and is validated with `zod/mini` and cached by [src/infra/config.ts](src/infra/config.ts). Put environment variables in this module's `.env` file.
 
 | Variable | Required | Description |
 | --- | --- | --- |
@@ -61,6 +61,8 @@ Task queries currently use the `QUERY` method. The list returns only tasks creat
 | `/openapi.html` | Scalar API reference with application and authentication sources |
 | `/spec.json` | Application OpenAPI document |
 | `/auth-spec.json` | Better Auth OpenAPI document |
+
+Application schemas are converted by `ZodToJsonSchemaConverter` from `@orpc/zod` in [src/spec.ts](src/spec.ts).
 
 Both JSON documents are generated dynamically during development and generated as static assets during builds. Update and delete operations do not declare explicit URLs in the contract; refer to the generated `/spec.json` for their resolved paths.
 
@@ -119,8 +121,8 @@ pnpm preview
 ## Validation
 
 ```bash
-pnpm test apps/api/src/router/index.test.ts
+pnpm test apps/api/src/router/index.test.ts apps/api/src/spec.test.ts
 pnpm check:type
 ```
 
-Route tests use in-memory PGlite and test sessions to cover task CRUD, user isolation, unauthenticated access, and the health check.
+Route tests use in-memory PGlite and test sessions to cover task CRUD, user isolation, unauthenticated access, the health check, pagination fallback, and task ID validation. OpenAPI tests verify generated request and response schemas.

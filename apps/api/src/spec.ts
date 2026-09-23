@@ -1,5 +1,5 @@
 import { OpenAPIGenerator } from '@orpc/openapi'
-import { ValibotToJsonSchemaConverter } from '@orpc/valibot'
+import { ZodToJsonSchemaConverter } from '@orpc/zod'
 import { ErrorStatusMap } from '@qingshaner/contract'
 
 import { router } from './router'
@@ -13,7 +13,7 @@ export const apiPrefix = '/api'
  */
 export const generateOpenAPISpec = async (): Promise<Response> => {
   const openAPIGenerator = new OpenAPIGenerator({
-    converters: [new ValibotToJsonSchemaConverter()]
+    converters: [new ZodToJsonSchemaConverter()]
   })
 
   return Response.json(

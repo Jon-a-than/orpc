@@ -1,6 +1,6 @@
 # oRPC Playground
 
-A TypeScript API project built with Nitro, oRPC, Valibot, and Drizzle ORM, featuring GitHub sign-in and task management with per-user data isolation.
+A TypeScript API project built with Nitro, oRPC, Zod Mini (`zod/mini`), and Drizzle ORM, featuring GitHub sign-in and task management with per-user data isolation.
 
 ## Modules
 

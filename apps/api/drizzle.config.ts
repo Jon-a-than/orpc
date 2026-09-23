@@ -2,7 +2,7 @@ import { resolve } from 'node:path'
 import { loadEnvFile } from 'node:process'
 
 import { defineConfig } from 'drizzle-kit'
-import * as v from 'valibot'
+import * as z from 'zod/mini'
 
 void ['.env.example', '.env'].forEach((path) => {
   try {
@@ -10,15 +10,15 @@ void ['.env.example', '.env'].forEach((path) => {
   } catch (_e) {}
 })
 
-const database = v.parse(
-  v.variant('driver', [
-    v.object({
-      dataDir: v.optional(v.pipe(v.string(), v.nonEmpty())),
-      driver: v.literal('pglite')
+const database = z.parse(
+  z.discriminatedUnion('driver', [
+    z.object({
+      dataDir: z.optional(z.string().check(z.minLength(1))),
+      driver: z.literal('pglite')
     }),
-    v.object({
-      driver: v.literal('postgres'),
-      url: v.pipe(v.string(), v.url(), v.nonEmpty())
+    z.object({
+      driver: z.literal('postgres'),
+      url: z.url()
     })
   ]),
   {

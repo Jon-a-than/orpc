@@ -73,6 +73,21 @@ describe('tasks router', () => {
     expect(updated).toMatchObject({ description: 'Keep me', id: task.id, title: 'Changed' })
   })
 
+  test('invalid pagination falls back to the first page with ten results', async () => {
+    for (let index = 0; index < 11; index++) {
+      await api().tasks.create({ body: { description: 'Pagination', title: `Task ${index}` } })
+    }
+
+    const result = await api().tasks.list({ query: { page: 0, pageSize: 101 } })
+
+    expect(result.map(({ title }) => title)).toEqual(Array.from({ length: 10 }, (_, index) => `Task ${index}`))
+  })
+
+  test.each([0, -1, 1.5])('rejects invalid task ID %s', async (id) => {
+    await expect(api().tasks.delete({ body: { id } })).rejects.toMatchObject({ code: 'BAD_REQUEST' })
+    await expect(api().tasks.update({ body: { id, title: 'Invalid' } })).rejects.toMatchObject({ code: 'BAD_REQUEST' })
+  })
+
   test('another user cannot update a task', async () => {
     await api().tasks.create({ body: { description: 'Keep me', title: 'Original' } })
     const [task] = await api().tasks.list({ query: {} })

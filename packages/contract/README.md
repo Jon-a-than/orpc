@@ -1,12 +1,14 @@
 # @qingshaner/contract
 
-A shared API contract template built with oRPC and Valibot. Define input/output schemas and OpenAPI metadata here, then implement the contracts in the [API module](../../apps/api/README.md).
+A shared API contract template built with oRPC and Zod Mini (`zod/mini`). Define input/output schemas and OpenAPI metadata here, then implement the contracts in the [API module](../../apps/api/README.md).
 
 ## Structure
 
 [src/index.ts](src/index.ts) is the contract entry point. Keep contract definitions separate from server concerns such as database access and authentication.
 
 The API's Nitro configuration resolves this package directly to its source during development and API builds, so no separate Contract build is required.
+
+Schemas import `zod/mini` from the `zod` package and use its functional API, such as `z.optional(schema)` and `z.string().check(z.minLength(1))`. Pagination uses `z.catch` to fall back on invalid values while keeping omitted values optional.
 
 ## Development
 

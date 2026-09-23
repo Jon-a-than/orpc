@@ -2,48 +2,48 @@ import { resolve } from 'node:path'
 
 import { loadConfig } from 'c12'
 import { useRuntimeConfig } from 'nitro/runtime-config'
-import * as v from 'valibot'
+import * as z from 'zod/mini'
 
 import { logger } from './logger'
 
-const configSchema = v.object({
-  auth: v.object({
-    github: v.object({
-      clientId: v.pipe(v.string(), v.nonEmpty()),
-      clientSecret: v.pipe(v.string(), v.nonEmpty())
+const configSchema = z.object({
+  auth: z.object({
+    github: z.object({
+      clientId: z.string().check(z.minLength(1)),
+      clientSecret: z.string().check(z.minLength(1))
     }),
 
-    secret: v.pipe(v.string(), v.nonEmpty(), v.minLength(32))
+    secret: z.string().check(z.minLength(32))
   }),
 
-  baseURL: v.pipe(v.string(), v.url(), v.nonEmpty()),
+  baseURL: z.url(),
 
-  database: v.variant('driver', [
-    v.object({
-      dataDir: v.optional(v.pipe(v.string(), v.nonEmpty())),
-      driver: v.literal('pglite')
+  database: z.discriminatedUnion('driver', [
+    z.object({
+      dataDir: z.optional(z.string().check(z.minLength(1))),
+      driver: z.literal('pglite')
     }),
-    v.object({
-      driver: v.literal('postgres'),
-      url: v.pipe(v.string(), v.url(), v.nonEmpty())
+    z.object({
+      driver: z.literal('postgres'),
+      url: z.url()
     })
   ]),
 
-  store: v.variant('driver', [
-    v.object({
-      base: v.pipe(v.pipe(v.string(), v.nonEmpty())),
-      driver: v.literal('fs-lite')
+  store: z.discriminatedUnion('driver', [
+    z.object({
+      base: z.string().check(z.minLength(1)),
+      driver: z.literal('fs-lite')
     }),
-    v.object({
-      base: v.pipe(v.pipe(v.string(), v.nonEmpty())),
-      driver: v.literal('upstash'),
-      scanCount: v.optional(v.number()),
-      ttl: v.optional(v.number())
+    z.object({
+      base: z.string().check(z.minLength(1)),
+      driver: z.literal('upstash'),
+      scanCount: z.optional(z.number()),
+      ttl: z.optional(z.number())
     })
   ])
 })
 
-let $config: Promise<v.InferOutput<typeof configSchema>>
+let $config: Promise<z.output<typeof configSchema>>
 
 const readConfig = async () => {
   const config =
@@ -62,10 +62,11 @@ const readConfig = async () => {
       : // biome-ignore lint/correctness/useHookAtTopLevel: not react hooks
         useRuntimeConfig()
 
-  const result = v.safeParse(configSchema, config)
+  const result = z.safeParse(configSchema, config)
 
   if (!result.success) {
-    const error = new Error(`Invalid config: ${JSON.stringify(v.flatten(result.issues))}`)
+    // cspell:ignore treeify
+    const error = new Error(`Invalid config: ${JSON.stringify(z.treeifyError(result.error))}`)
     logger.fatal(error, {
       code: 'CONFIG_INVALID',
       position: 'infra.config'
@@ -73,9 +74,9 @@ const readConfig = async () => {
 
     throw error
   }
-  logger.info('Config loaded successfully', { config: result.output })
+  logger.info('Config loaded successfully', { config: result.data })
 
-  return result.output
+  return result.data
 }
 
 export const getConfig = () => {
