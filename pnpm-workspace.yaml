@@ -8,4 +8,4 @@ allowBuilds:
   simple-git-hooks: true
 
 minimumReleaseAgeExclude:
-  - '@qingshaner/utility-orpc@0.1.0'
+  - '@qingshaner/utility-orpc@0.1.0 || 0.2.0'

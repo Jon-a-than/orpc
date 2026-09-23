@@ -1,4 +1,4 @@
-import { boolean, index, pgTable, text, timestamp } from 'drizzle-orm/pg-core'
+import { boolean, index, pgTable, serial, text, timestamp } from 'drizzle-orm/pg-core'
 
 const baseTable = {
   createdAt: timestamp('created_at', { precision: 6, withTimezone: true }).defaultNow().notNull(),
@@ -81,4 +81,12 @@ export const jwkss = pgTable('jwkss', {
   id: text('id').primaryKey(),
   privateKey: text('private_key').notNull(),
   publicKey: text('public_key').notNull()
+})
+
+export const tasks = pgTable('tasks', {
+  ...baseTable,
+  creatorId: text('creator_id').notNull(),
+  description: text('description').notNull(),
+  id: serial('id').primaryKey(),
+  title: text('title').notNull()
 })

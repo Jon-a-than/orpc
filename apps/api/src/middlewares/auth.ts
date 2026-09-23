@@ -24,7 +24,7 @@ const getBetterAuthOptions = async (): Promise<Options> => {
     basePath: authBasePath,
     baseURL: config.baseURL,
     database: drizzleAdapter(await getDatabase(), {
-      debugLogs: true,
+      debugLogs: false,
       provider: 'pg',
       schema,
       usePlural: true
@@ -65,7 +65,7 @@ export const requireSession = base.middleware(({ context, next }) =>
     })
 
     if (!session) {
-      throw new ORPCError('FORBIDDEN::REQUIRE_LOGIN', {
+      throw new ORPCError('UNAUTHORIZED::NOT_SIGN_IN', {
         message: 'You must be logged in to access this resource'
       })
     }

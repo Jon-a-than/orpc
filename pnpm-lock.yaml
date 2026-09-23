@@ -230,8 +230,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/contract
       '@qingshaner/utility-orpc':
-        specifier: ^0.1.0
-        version: 0.1.0(@orpc/server@2.0.0-beta.36(crossws@0.4.12(srvx@1.0.5)))(typescript@7.0.2)
+        specifier: ^0.2.0
+        version: 0.2.0(@orpc/server@2.0.0-beta.36(crossws@0.4.12(srvx@1.0.5)))(typescript@7.0.2)
       better-auth:
         specifier: ^1.7.5
         version: 1.7.5(@opentelemetry/api@1.9.1)(drizzle-kit@1.0.0-rc.4)(drizzle-orm@1.0.0-rc.4(@electric-sql/pglite@0.5.8)(@neondatabase/serverless@1.1.0)(@opentelemetry/api@1.9.1)(@types/pg@8.23.1)(pg@8.23.0)(valibot@1.5.0(typescript@7.0.2))(zod@4.6.5))(pg@8.23.0)(vitest@5.0.1)
@@ -1250,8 +1250,8 @@ packages:
     peerDependencies:
       '@biomejs/biome': ^2.5.3
 
-  '@qingshaner/utility-orpc@0.1.0':
-    resolution: {integrity: sha512-DsdK+lLt7ctnOrIMnqGNBdvGZnWRvcECmXwuw2r0foNn6QlHSWYqRMKX43LhG605tlh4Q0gg6iDmFdITZ1leLA==, tarball: https://registry.npmjs.org/@qingshaner/utility-orpc/-/utility-orpc-0.1.0.tgz}
+  '@qingshaner/utility-orpc@0.2.0':
+    resolution: {integrity: sha512-mob+LwzOe+sI79SUjpFCDiBda9tJIf7O3ubIy5FRKnZBGmz9Er/WOTQFHtuAHgzrLz46obrK1UJSxGaskNarbw==}
     engines: {node: ^22.18.0 || ^24.11.0 || >=26.0.0, pnpm: '>=12.0.0'}
     peerDependencies:
       '@orpc/server': '>=2.0.0-beta.36'
@@ -3535,7 +3535,7 @@ snapshots:
     dependencies:
       '@biomejs/biome': 2.5.14
 
-  '@qingshaner/utility-orpc@0.1.0(@orpc/server@2.0.0-beta.36(crossws@0.4.12(srvx@1.0.5)))(typescript@7.0.2)':
+  '@qingshaner/utility-orpc@0.2.0(@orpc/server@2.0.0-beta.36(crossws@0.4.12(srvx@1.0.5)))(typescript@7.0.2)':
     dependencies:
       '@opentelemetry/api': 1.9.1
       '@orpc/server': 2.0.0-beta.36(crossws@0.4.12(srvx@1.0.5))

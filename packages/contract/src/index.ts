@@ -11,22 +11,15 @@ const base = oc
     })
   )
   .errors({
-    'FORBIDDEN::REQUIRE_LOGIN': {
-      data: v.void(),
-      message: 'You must be logged in to access this resource'
-    },
     'NOT_IMPLEMENTED::FEATURE_NOT_IMPLEMENTED': {
       data: v.void(),
       message: 'This feature is not implemented yet'
+    },
+    'UNAUTHORIZED::NOT_SIGN_IN': {
+      data: v.void(),
+      message: 'You must be logged in to access this resource'
     }
   })
-
-const users = base.meta(
-  openapi({
-    method: 'GET',
-    tags: ['User Management']
-  })
-)
 
 const tasks = base.meta(openapi({ tags: ['Tasks'] }))
 
@@ -59,10 +52,40 @@ export const contract = {
           })
         })
       ),
+    delete: tasks
+      .meta(
+        openapi({
+          description: 'Delete a task by its ID',
+          method: 'DELETE',
+          operationId: 'deleteTask'
+        })
+      )
+      .errors({
+        'FORBIDDEN::TASK_NOT_AUTHOR': {
+          data: v.void(),
+          message: 'You are not the author of this task'
+        },
+        'NOT_FOUND::TASK_NOT_FOUND': {
+          data: v.void(),
+          message: 'Task not found or has already been deleted'
+        }
+      })
+      .input(
+        v.object({
+          body: v.object({
+            id: v.pipe(v.number(), v.integer(), v.minValue(1, 'id must be a positive integer'))
+          })
+        })
+      )
+      .output(
+        v.object({
+          status: v.literal(true)
+        })
+      ),
     list: tasks
       .meta(
         openapi({
-          description: 'List all tasks',
+          description: 'Query user tasks',
           method: 'QUERY',
           operationId: 'queryTasks',
           path: '/tasks'
@@ -71,6 +94,7 @@ export const contract = {
       .input(
         v.object({
           query: v.object({
+            keyword: v.optional(v.string()),
             page: v.fallback(v.optional(v.pipe(v.number(), v.minValue(1, 'page must be at least 1'))), 1),
             pageSize: v.fallback(v.optional(v.pipe(v.number(), v.maxValue(100, 'pageSize must be at most 100'))), 10)
           })
@@ -81,40 +105,45 @@ export const contract = {
           v.object({
             createdAt: v.pipe(v.string(), v.isoTimestamp()),
             description: v.string(),
-            id: v.string(),
+            id: v.number(),
             title: v.string(),
             updatedAt: v.pipe(v.string(), v.isoTimestamp())
           })
         )
-      )
-  },
-  users: users
-    .meta(
-      openapi({
-        method: 'QUERY',
-        operationId: 'queryUserProfile',
-        path: '/users'
-      })
-    )
-    .errors({
-      'FORBIDDEN::USER_NOT_FOUND': {
-        data: v.void(),
-        message: 'user not found'
-      }
-    })
-    .input(
-      v.object({
-        body: v.object({
-          username: v.pipe(v.string(), v.minLength(1, 'username must be at least 1 character long'))
+      ),
+    update: tasks
+      .meta(
+        openapi({
+          description: 'Update a task by its ID',
+          method: 'PUT',
+          operationId: 'updateTask'
         })
+      )
+      .errors({
+        'FORBIDDEN::TASK_NOT_AUTHOR': {
+          data: v.void(),
+          message: 'You are not the author of this task'
+        },
+        'NOT_FOUND::TASK_NOT_FOUND': {
+          data: v.void(),
+          message: 'Task not found or has already been deleted'
+        }
       })
-    )
-    .output(
-      v.object({
-        avatar: v.string(),
-        username: v.string()
-      })
-    )
+      .input(
+        v.object({
+          body: v.object({
+            description: v.optional(v.string()),
+            id: v.pipe(v.number(), v.integer(), v.minValue(1, 'id must be a positive integer')),
+            title: v.optional(v.string())
+          })
+        })
+      )
+      .output(
+        v.object({
+          status: v.literal(true)
+        })
+      )
+  }
 }
 
 export { type ErrorCode, ErrorStatusMap } from './error-status-map.gen'

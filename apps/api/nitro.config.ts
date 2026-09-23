@@ -1,10 +1,17 @@
 import { type FSWatcher, watch } from 'node:fs'
+import { resolve } from 'node:path'
 
+import { generateErrorStatusMap as $generateErrorStatusMap } from '@qingshaner/utility-orpc'
 import { defineConfig } from 'nitro'
 
-import { errorSourceDirs, generateErrorStatusMap } from '../../packages/contract/scripts/generate-error-status-map'
-
 const errorWatchers: FSWatcher[] = []
+const ContractDir = resolve(import.meta.dirname, '../../packages/contract/src')
+const errorSourceDirs = [ContractDir, resolve(import.meta.dirname, 'src')]
+const generateErrorStatusMap = () =>
+  $generateErrorStatusMap({
+    outputFile: resolve(ContractDir, 'error-status-map.gen.ts'),
+    sourceDirs: errorSourceDirs
+  })
 
 export default defineConfig({
   $development: {
@@ -12,10 +19,11 @@ export default defineConfig({
     experimental: {
       tracingLogger: true
     },
+    preset: 'node-server',
     tracingChannel: true
   },
   alias: {
-    '@qingshaner/contract': '../../packages/contract/src/index.ts'
+    '@qingshaner/contract': resolve(ContractDir, 'index.ts')
   },
   builder: 'rolldown',
   errorHandler: './src/error.ts',
@@ -23,7 +31,7 @@ export default defineConfig({
     failOnError: true,
     routes: ['/spec.json', '/auth-spec.json']
   },
-  preset: 'node_server',
+  preset: 'vercel',
   rolldownConfig: {
     external: ['giget', 'chokidar'],
     output: {
@@ -31,16 +39,16 @@ export default defineConfig({
     },
     plugins: [
       {
-        buildStart() {
-          generateErrorStatusMap()
+        async buildStart() {
+          await generateErrorStatusMap()
           if (this.meta.watchMode && errorWatchers.length === 0) {
             for (const directory of errorSourceDirs) {
-              const watcher = watch(directory, { recursive: true }, (_, filename) => {
+              const watcher = watch(directory, { recursive: true }, async (_, filename) => {
                 if (filename && (!filename.endsWith('.ts') || filename.endsWith('.gen.ts'))) {
                   return
                 }
                 try {
-                  generateErrorStatusMap()
+                  await generateErrorStatusMap()
                 } catch (error) {
                   this.warn(`Error status map generation failed: ${error}`)
                 }

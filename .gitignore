@@ -1,10 +1,11 @@
 dist
 cache
 .cache
-.data/**/*
+.data
 !.data/.gitkeep
 .logs
 .output
+.vercel
 coverage
 node_modules
 

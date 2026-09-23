@@ -7,5 +7,5 @@
     "types": ["node"]
   },
   "extends": "@qingshaner/devtools/tsconfig/base.json",
-  "include": ["../**/*.config.ts", "../apps/api/config.ts", "../packages/*/scripts/**/*.ts"]
+  "include": ["../**/*.config.ts", "../apps/api/config.ts"]
 }
