@@ -3,6 +3,7 @@ name: release
 on:
   push:
     branches: ['main']
+  workflow_dispatch:
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
@@ -38,7 +39,18 @@ jobs:
         run: pnpm test
 
       - name: Build app
-        run: pnpm build
+        run: pnpm --filter @qingshaner/api exec nitro build --preset node-server
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Set documentation as the home page
+        run: cp apps/api/.output/public/openapi.html apps/api/.output/public/index.html
+
+      - name: Upload static assets
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: apps/api/.output/public
 
       - name: Create Release Pull Request
         id: changesets
@@ -66,3 +78,21 @@ jobs:
           NPM_PACKAGE_NAME=$(echo '${{ steps.changesets.outputs.published-packages }}' | jq -r '.[0].name')
           echo "Syncing CNPM $NPM_PACKAGE_NAME"
           curl -X PUT "https://registry-direct.npmmirror.com/-/package/${NPM_PACKAGE_NAME}/syncs"
+
+  pages-deploy:
+    needs: release
+    concurrency:
+      group: pages
+      cancel-in-progress: false
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

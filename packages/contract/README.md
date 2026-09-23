@@ -1,12 +1,28 @@
 # @qingshaner/contract
 
-<p align="center">
-<a href="https://jsr.io/@qingshaner/contract"><img src="https://jsr.io/badges/@qingshaner/contract" alt="JSR package" /></a>
-<a href="https://www.npmjs.com/@qingshaner/contract" target="_blank"><img src="https://img.shields.io/npm/v/@qingshaner/contract" alt="NPM Version" /></a>
-<img alt="LICENSE" src="https://img.shields.io/github/license/tsingshaner/orpc">
-<a href="https://github.com/tsingshaner/orpc/actions/workflows/ci.yml"><img src="https://github.com/tsingshaner/orpc/actions/workflows/ci.yml/badge.svg" alt="unit-test" /></a>
-<a href="https://biomejs.dev"><img alt="Linted with Biome" src="https://img.shields.io/badge/Linted_with-Biome-60a5fa?style=flat&logo=biome"></a>
-<a href="https://biomejs.dev" target="_blank"><img alt="Static Badge" src="https://img.shields.io/badge/Formatted_with-Biome-60a5fa?style=flat&logo=biome"></a>
-</p>
+A shared API contract template built with oRPC and Valibot. Define input/output schemas and OpenAPI metadata here, then implement the contracts in the [API module](../../apps/api/README.md).
 
-api contract with openapi
+## Structure
+
+[src/index.ts](src/index.ts) is the contract entry point. Keep contract definitions separate from server concerns such as database access and authentication.
+
+The API's Nitro configuration resolves this package directly to its source during development and API builds, so no separate Contract build is required.
+
+## Development
+
+1. Define or update contracts in `src/index.ts`.
+2. Implement them in the [API router](../../apps/api/src/router/index.ts).
+3. Update the corresponding tests.
+
+Run validation from the repository root:
+
+```bash
+pnpm check:type
+pnpm test
+```
+
+Run `pnpm dev` to inspect the generated API documentation at `/openapi.html`.
+
+## Building
+
+The package's `exports` point to `dist`, while the root `pnpm build` command only builds API. Separate package build configuration lives in [tsdown.config.ts](../../tsdown.config.ts); generate and inspect Contract artifacts before publishing.
