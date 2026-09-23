@@ -16,6 +16,8 @@ permissions:
 jobs:
   release:
     runs-on: ubuntu-latest
+    outputs:
+      pages-ready: ${{ steps.pages-artifact.outcome == 'success' }}
 
     strategy:
       matrix:
@@ -48,6 +50,7 @@ jobs:
         run: cp apps/api/.output/public/openapi.html apps/api/.output/public/index.html
 
       - name: Upload static assets
+        id: pages-artifact
         uses: actions/upload-pages-artifact@v4
         with:
           path: apps/api/.output/public
@@ -84,7 +87,7 @@ jobs:
     concurrency:
       group: pages
       cancel-in-progress: false
-    if: github.ref == 'refs/heads/main'
+    if: ${{ !cancelled() && github.ref == 'refs/heads/main' && needs.release.outputs.pages-ready == 'true' }}
     runs-on: ubuntu-latest
     permissions:
       pages: write
