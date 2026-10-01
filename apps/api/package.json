@@ -24,7 +24,7 @@
   "description": "api gateway",
   "devDependencies": {
     "@types/pg": "^8.23.1",
-    "c12": "4.0.0-rc.1",
+    "c12": "4.0.0-rc.2",
     "drizzle-kit": "1.0.0-rc.4",
     "nitro": "3.0.260903-beta"
   },
