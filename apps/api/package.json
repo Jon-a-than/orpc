@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "@electric-sql/pglite": "^0.5.8",
-    "@logtape/drizzle-orm": "^2.3.6",
+    "@logtape/drizzle-orm": "^2.3.8",
     "@logtape/logtape": "^2.3.6",
     "@neondatabase/serverless": "^1.1.0",
     "@orpc/openapi": "^2.0.0-beta.36",

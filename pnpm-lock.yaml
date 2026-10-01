@@ -209,8 +209,8 @@ importers:
         specifier: ^0.5.8
         version: 0.5.8
       '@logtape/drizzle-orm':
-        specifier: ^2.3.6
-        version: 2.3.6(@logtape/logtape@2.3.6)
+        specifier: ^2.3.8
+        version: 2.3.8(@logtape/logtape@2.3.6)
       '@logtape/logtape':
         specifier: ^2.3.6
         version: 2.3.6
@@ -917,10 +917,10 @@ packages:
     resolution: {integrity: sha512-hloP58zRVCRSpgDxmqCWJNlizAlUgJFqG2ypq79DCvyv9tHjRYMDOcPFjzfl/A1/YxDvRCZz8wvZvmapQnKwFQ==}
     engines: {node: '>=12'}
 
-  '@logtape/drizzle-orm@2.3.6':
-    resolution: {integrity: sha512-LL8z6xRfN/2EdIhK5cVgdL8j8vLDMEg0Tvrew23CKB31wZOAAhkTZNKxHlWSmqG6tloZabiFsnda16yxLvmnjA==}
+  '@logtape/drizzle-orm@2.3.8':
+    resolution: {integrity: sha512-Ui5PUKyt1a+wqFGuBbIbq+NcMfVwkQ8/1wxN0CHqfO5KdWo+XTesoOBpMpkHYbj9Vr63IGpZcGWJorB3XyA0kQ==}
     peerDependencies:
-      '@logtape/logtape': ^2.3.6
+      '@logtape/logtape': ^2.3.8
 
   '@logtape/logtape@2.3.6':
     resolution: {integrity: sha512-1ajI6YRkq+gIpgYVhOcJ4Mn5QUarSvWnnuj8SNMjwrjIcOy1ANEIcZyaLN+vPtL2MCa845D8ghXR8xDA+c3Khg==}
@@ -3289,7 +3289,7 @@ snapshots:
     dependencies:
       jsbi: 4.3.2
 
-  '@logtape/drizzle-orm@2.3.6(@logtape/logtape@2.3.6)':
+  '@logtape/drizzle-orm@2.3.8(@logtape/logtape@2.3.6)':
     dependencies:
       '@logtape/logtape': 2.3.6
 
