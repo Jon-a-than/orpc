@@ -1,5 +1,6 @@
 import { createWriteStream } from 'node:fs'
 import { mkdir } from 'node:fs/promises'
+import { relative, resolve } from 'node:path'
 import { Writable } from 'node:stream'
 
 import {
@@ -15,6 +16,22 @@ type Category = 'orm' | 'auth' | (string & {})
 
 const name = 'api'
 
+const cwd = resolve(import.meta.dirname, '../../../../..')
+const prettifyErrorStack = (stack: string): string => {
+  return stack.replace(
+    /(\(?)(file:\/\/)?((?:\/|[A-Za-z]:\\)[^():\n]+)(:\d+:\d+)(\)?)/g,
+    (_, open, _fileProtocol, filePath, position, close) => {
+      const rel = relative(cwd, filePath)
+
+      if (rel.startsWith('..')) {
+        return `${open}${filePath}${position}${close}`
+      }
+
+      return `${open}./${rel.replaceAll('\\', '/')}${position}${close}`
+    }
+  )
+}
+
 const consoleSink = import.meta.dev
   ? getConsoleSink({
       formatter: getAnsiColorFormatter({
@@ -26,14 +43,14 @@ const consoleSink = import.meta.dev
             stack
               ? `\n${
                   typeof stack === 'string'
-                    ? stack
-                        ?.split('\n')
-                        .slice(1)
-                        .map((line) => `  ${line.trim()}`)
-                        .join('\n')
-                    : stack
-                }`
-              : ''
+                    ? prettifyErrorStack(stack)
+                    : // ?.split('\n')
+                      // .slice(1)
+                      // .map((line) => `  ${line.trim()}`)
+                      // .join('\n')
+                      stack
+                }\n`
+              : '\n'
           }`
         },
         level: (level) => level,

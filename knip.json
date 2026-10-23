@@ -1,5 +1,6 @@
 {
   "$schema": "node_modules/knip/schema.json",
+  "cspell": true,
   "drizzle": true,
   "nitro": true,
   "tags": ["-lintignore"],
@@ -7,7 +8,8 @@
   "workspaces": {
     "apps/*": {
       "entry": ["src/plugins/*.ts", "src/error.ts"],
-      "project": ["src/**/*.ts"]
+      "ignoreDependencies": ["tailwindcss"],
+      "project": ["src/**/*.ts", "src/**/*.tsx"]
     },
     "packages/*": {
       "entry": ["src/index.ts"]

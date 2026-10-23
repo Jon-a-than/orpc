@@ -1,11 +1,12 @@
 import { PGlite } from '@electric-sql/pglite'
 import { getLogger } from '@logtape/drizzle-orm'
+import { onShutdown } from '@qingshaner/utility-orpc'
 import { drizzle as postgresDrizzle } from 'drizzle-orm/node-postgres'
 import { drizzle as pgliteDrizzle } from 'drizzle-orm/pglite'
 import { migrate } from 'drizzle-orm/pglite/migrator'
 import { Pool } from 'pg'
 
-import { getConfig, onShutdown } from '../infra'
+import { getConfig } from '../infra'
 import { relations } from './relation'
 
 type Database =

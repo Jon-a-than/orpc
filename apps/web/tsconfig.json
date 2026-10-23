@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "noEmit": true,
+    "rootDir": "../..",
+    "types": ["vite/client"]
+  },
+  "extends": ["@qingshaner/devtools/tsconfig/react.json", "../../.config/tsconfig.paths.json"],
+  "include": ["src", "../../*/*/src"]
+}

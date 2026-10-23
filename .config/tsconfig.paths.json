@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "paths": {
+      "@qingshaner/api": ["../apps/api/src/index.ts"],
+      "@qingshaner/contract": ["../packages/contract/src/index.ts"],
+      "@qingshaner/ui": ["../packages/ui/src/index.ts"]
+    }
+  }
+}

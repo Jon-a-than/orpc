@@ -29,6 +29,7 @@ const getBetterAuthOptions = async (): Promise<Options> => {
       schema,
       usePlural: true
     }),
+    emailAndPassword: { enabled: true },
     logger: {
       level: 'debug',
       log: (level: 'error' | 'debug' | 'info' | 'warn', message: string, ...args: unknown[]) => {
@@ -41,7 +42,8 @@ const getBetterAuthOptions = async (): Promise<Options> => {
     secret: config.auth.secret,
     socialProviders: {
       github: config.auth.github
-    }
+    },
+    trustedOrigins: config.auth.trustedOrigins
   } as const satisfies BetterAuthOptions
 }
 

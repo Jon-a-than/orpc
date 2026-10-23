@@ -1,11 +1,11 @@
 import { OpenAPIHandler } from '@orpc/openapi/fetch'
 import { onError } from '@orpc/server'
 import { ErrorStatusMap } from '@qingshaner/contract'
-import { AppContextPlugin } from '@qingshaner/utility-orpc'
+import { measure } from '@qingshaner/utility-orpc'
 
 import type { ServerRequest } from 'nitro/types'
-
 import './error-code.d.ts'
+
 import { logger } from './infra'
 import { authBasePath, getAuth } from './middlewares'
 import { router } from './router'
@@ -27,13 +27,6 @@ const app = new OpenAPIHandler(router, {
         stack: e.stack
       })
     })
-  ],
-  plugins: [
-    new AppContextPlugin({
-      features: {
-        serverTiming: true
-      }
-    })
   ]
 })
 
@@ -50,16 +43,26 @@ export default {
     }
 
     if (req._url?.pathname.startsWith(authBasePath) && (req.method === 'POST' || req.method === 'GET')) {
-      return (await getAuth()).handler(req)
+      const auth = await getAuth()
+      return measure('better-auth', () => auth.handler(req), {
+        description: 'auth handler'
+      })
     }
 
-    const { matched, response } = await app.handle(req, {
-      context: {
-        ...req.context,
-        reqHeaders: req.headers
-      },
-      prefix: apiPrefix
-    })
+    const { matched, response } = await measure(
+      'handler',
+      () =>
+        app.handle(req, {
+          context: {
+            ...req.context,
+            reqHeaders: req.headers
+          },
+          prefix: apiPrefix
+        }),
+      {
+        description: 'api handler'
+      }
+    )
 
     return matched
       ? response

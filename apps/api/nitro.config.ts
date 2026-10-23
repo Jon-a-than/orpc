@@ -1,18 +1,11 @@
-import { type FSWatcher, watch } from 'node:fs'
 import { resolve } from 'node:path'
 
-import { generateErrorStatusMap as $generateErrorStatusMap } from '@qingshaner/utility-orpc'
+import errorStatusMapPlugin from '@qingshaner/utility-orpc/plugin/rolldown'
 import { defineConfig } from 'nitro'
 
-const errorWatchers: FSWatcher[] = []
 const ContractDir = resolve(import.meta.dirname, '../../packages/contract/src')
-const errorSourceDirs = [ContractDir, resolve(import.meta.dirname, 'src')]
-const generateErrorStatusMap = () =>
-  $generateErrorStatusMap({
-    outputFile: resolve(ContractDir, 'error-status-map.gen.ts'),
-    sourceDirs: errorSourceDirs
-  })
 
+const origin = ['http://localhost:5173']
 export default defineConfig({
   $development: {
     debug: true,
@@ -20,6 +13,14 @@ export default defineConfig({
       tracingLogger: true
     },
     preset: 'node-server',
+    routeRules: {
+      '/api/**': {
+        cors: {
+          credentials: true,
+          origin
+        }
+      }
+    },
     tracingChannel: true
   },
   alias: {
@@ -37,35 +38,7 @@ export default defineConfig({
     output: {
       minify: true
     },
-    plugins: [
-      {
-        async buildStart() {
-          await generateErrorStatusMap()
-          if (this.meta.watchMode && errorWatchers.length === 0) {
-            for (const directory of errorSourceDirs) {
-              const watcher = watch(directory, { recursive: true }, async (_, filename) => {
-                if (filename && (!filename.endsWith('.ts') || filename.endsWith('.gen.ts'))) {
-                  return
-                }
-                try {
-                  await generateErrorStatusMap()
-                } catch (error) {
-                  this.warn(`Error status map generation failed: ${error}`)
-                }
-              })
-              watcher.on('error', (error) => this.warn(`Error status map watcher failed: ${error}`))
-              errorWatchers.push(watcher)
-            }
-          }
-        },
-        closeWatcher() {
-          for (const watcher of errorWatchers.splice(0)) {
-            watcher.close()
-          }
-        },
-        name: 'error-status-map'
-      }
-    ]
+    plugins: [errorStatusMapPlugin({ outputFile: resolve(ContractDir, 'error-status-map.gen.ts') })]
   },
   runtimeConfig: {
     auth: {
@@ -73,7 +46,8 @@ export default defineConfig({
         clientId: process.env.NITRO_AUTH_GITHUB_CLIENT_ID,
         clientSecret: process.env.NITRO_AUTH_GITHUB_CLIENT_SECRET
       },
-      secret: process.env.NITRO_AUTH_SECRET
+      secret: process.env.NITRO_AUTH_SECRET,
+      trustedOrigins: origin
     },
     baseURL: 'http://localhost:3000',
     database: {

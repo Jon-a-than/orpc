@@ -4,10 +4,10 @@ A TypeScript API project built with Nitro, oRPC, Zod Mini (`zod/mini`), and Driz
 
 ## Modules
 
-| Module | Responsibility | Documentation |
-| --- | --- | --- |
-| `apps/api` | HTTP server, authentication, task routes, database access, and OpenAPI documentation | [API README](apps/api/README.md) |
-| `packages/contract` | API contracts, input/output validation, and error status mapping | [Contract README](packages/contract/README.md) |
+| Module              | Responsibility                                                                       | Documentation                                  |
+| ------------------- | ------------------------------------------------------------------------------------ | ---------------------------------------------- |
+| `apps/api`          | HTTP server, authentication, task routes, database access, and OpenAPI documentation | [API README](apps/api/README.md)               |
+| `packages/contract` | API contracts, input/output validation, and error status mapping                     | [Contract README](packages/contract/README.md) |
 
 Define endpoints in Contract, then implement them in API. During development and API builds, an alias resolves Contract directly to its source, so no separate contract build is required.
 
@@ -35,15 +35,15 @@ The default database is in-memory PGlite. Migrations run on first database acces
 
 ## Commands
 
-| Command | Purpose |
-| --- | --- |
-| `pnpm dev` | Start the API development server |
-| `pnpm build` | Build the API with the default Vercel preset and generate static OpenAPI documents |
-| `pnpm test` | Run Vitest tests |
-| `pnpm test:cov` | Run tests with coverage |
-| `pnpm check:type` | Check TypeScript types |
-| `pnpm check` | Run Biome checks and automatically fix files |
-| `pnpm check:cspell` | Check spelling |
-| `pnpm check:knip` | Find unused files, dependencies, and exports |
+| Command             | Purpose                                                                            |
+| ------------------- | ---------------------------------------------------------------------------------- |
+| `pnpm dev`          | Start the API development server                                                   |
+| `pnpm build`        | Build the API with the default Vercel preset and generate static OpenAPI documents |
+| `pnpm test`         | Run Vitest tests                                                                   |
+| `pnpm test:cov`     | Run tests with coverage                                                            |
+| `pnpm check:type`   | Check TypeScript types                                                             |
+| `pnpm check`        | Run Biome checks and automatically fix files                                       |
+| `pnpm check:cspell` | Check spelling                                                                     |
+| `pnpm check:knip`   | Find unused files, dependencies, and exports                                       |
 
 Previewing a production build locally requires Node server output. See [Building and previewing](apps/api/README.md#building-and-previewing) for commands.

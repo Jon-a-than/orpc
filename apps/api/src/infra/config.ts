@@ -13,7 +13,9 @@ const configSchema = z.object({
       clientSecret: z.string().check(z.minLength(1))
     }),
 
-    secret: z.string().check(z.minLength(32))
+    secret: z.string().check(z.minLength(32)),
+
+    trustedOrigins: z.optional(z.array(z.string().check(z.url())))
   }),
 
   baseURL: z.url(),

@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "noEmit": true,
+    "paths": {
+      "@qingshaner/ui/*": ["./src/*"]
+    },
+    "rootDir": "."
+  },
+  "extends": ["../../tsconfig.json", "@qingshaner/devtools/tsconfig/react.json"],
+  "include": ["src"]
+}

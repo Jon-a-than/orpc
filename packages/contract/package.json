@@ -1,47 +1,47 @@
 {
-  "author": {
-    "name": "qingshaner",
-    "url": "https://github.com/Jon-a-than"
-  },
+  "name": "@qingshaner/contract",
+  "version": "0.0.0",
+  "description": "api contract with openapi",
+  "homepage": "https://github.com/tsingshaner/orpc#readme",
   "bugs": {
     "url": "https://github.com/tsingshaner/orpc/issues"
-  },
-  "dependencies": {
-    "@orpc/contract": "^2.0.0-beta.36",
-    "@orpc/openapi": "2.0.0-beta.36",
-    "zod": "^4.6.5"
-  },
-  "description": "api contract with openapi",
-  "engines": {
-    "node": "^22.18.0 || ^24.11.0 || >=26.0.0",
-    "pnpm": ">=12.0.0"
-  },
-  "exports": {
-    ".": {
-      "default": "./dist/index.js",
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
-    }
-  },
-  "files": [
-    "dist"
-  ],
-  "homepage": "https://github.com/tsingshaner/orpc#readme",
-  "license": "ISC",
-  "main": "dist/index.js",
-  "name": "@qingshaner/contract",
-  "publishConfig": {
-    "access": "public",
-    "registry": "https://registry.npmjs.org/"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/tsingshaner/orpc.git"
   },
+  "license": "ISC",
+  "author": {
+    "name": "qingshaner",
+    "url": "https://github.com/Jon-a-than"
+  },
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "gen:error-code": "node ./scripts/generate-error-status-map.ts"
   },
-  "type": "module",
-  "types": "dist/index.d.ts",
-  "version": "0.0.0"
+  "dependencies": {
+    "@orpc/contract": "^2.0.0-beta.43",
+    "@orpc/openapi": "2.0.0-beta.36",
+    "zod": "^4.6.7"
+  },
+  "engines": {
+    "node": "^22.18.0 || ^24.11.0 || >=26.0.0",
+    "pnpm": ">=12.0.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  }
 }

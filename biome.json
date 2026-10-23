@@ -1,10 +1,27 @@
 {
   "$schema": "node_modules/@biomejs/biome/configuration_schema.json",
-  "extends": ["@qingshaner/devtools/biome"],
+  "extends": ["@qingshaner/devtools/configs/recommended"],
   "files": {
     "includes": ["**/*", "!**/*/drizzle/**/*.json"]
   },
+  "linter": {
+    "rules": {
+      "nursery": {
+        "noUndeclaredClasses": "off",
+        "noUnusedClasses": "off"
+      }
+    }
+  },
   "overrides": [
+    {
+      "formatter": {
+        "enabled": false
+      },
+      "includes": ["**/*.gen.ts"],
+      "linter": {
+        "enabled": false
+      }
+    },
     {
       "includes": ["**/*.test.ts", "**/*.bench.ts"],
       "linter": {
@@ -19,10 +36,25 @@
       }
     },
     {
+      "includes": ["packages/ui/src/components/**/*.tsx"],
+      "linter": {
+        "rules": {
+          "style": {
+            "useComponentExportOnlyModules": "off"
+          }
+        }
+      }
+    },
+    {
       "assist": {
         "enabled": false
       },
       "includes": ["package.json"]
     }
-  ]
+  ],
+  "yaml": {
+    "formatter": {
+      "quoteStyle": "single"
+    }
+  }
 }

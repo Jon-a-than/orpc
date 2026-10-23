@@ -1,15 +1,12 @@
 {
   "compilerOptions": {
-    "lib": ["ESNext"],
-    "paths": {
-      "@qingshaner/api/*": ["../apps/api/src/*"],
-      "@qingshaner/contract": ["../packages/contract/src/index.ts"]
-    },
+    "jsx": "react-jsx",
+    "lib": ["ESNext", "DOM"],
     "resolveJsonModule": true,
     "rootDir": "..",
     "target": "ESNext",
     "types": ["node", "vitest/importMeta"]
   },
-  "extends": "@qingshaner/devtools/tsconfig/base.json",
+  "extends": ["@qingshaner/devtools/tsconfig/base.json", "./tsconfig.paths"],
   "include": ["../apps/*/src", "../packages/*/src", "env.d.ts"]
 }

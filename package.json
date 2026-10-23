@@ -29,32 +29,36 @@
     "registry": "https://registry.npmjs.org/"
   },
   "scripts": {
-    "build": "pnpm --filter=api build",
+    "build": "pnpm run '/^build:/'",
+    "build:api": "pnpm --filter=api build",
+    "build:web": "pnpm --filter=web build",
     "changeset-version": "changeset version",
     "changeset-publish": "changeset publish",
     "check": "biome check . --write",
     "check:cspell": "cspell . --no-summary --no-progress --gitignore",
     "check:type": "tsc --build --noEmit",
     "check:knip": "knip",
-    "dev": "pnpm --filter=api dev",
+    "dev": "pnpm run '/^dev:/'",
+    "dev:api": "pnpm --filter=api dev",
+    "dev:web": "pnpm --filter=web dev",
     "prepare": "simple-git-hooks",
     "preview": "pnpm --filter=api preview",
     "test": "vitest run",
     "test:cov": "vitest run --coverage"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.5.14",
+    "@biomejs/biome": "^2.6.2",
     "@changesets/cli": "^3.0.3",
-    "@qingshaner/devtools": "^0.0.3",
-    "@types/node": "^26.6.1",
-    "@vitest/coverage-v8": "^5.0.1",
-    "cspell": "^10.3.3",
-    "knip": "^6.36.0",
+    "@qingshaner/devtools": "^2.0.0",
+    "@types/node": "^26.6.5",
+    "@vitest/coverage-v8": "^5.0.5",
+    "cspell": "^10.4.0",
+    "knip": "^6.42.1",
     "nano-staged": "^1.0.2",
     "simple-git-hooks": "^2.14.0",
-    "tsdown": "^0.23.0",
+    "tsdown": "^0.23.1",
     "typescript": "^7.0.2",
-    "vitest": "^5.0.1"
+    "vitest": "^5.0.5"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm nano-staged",
@@ -62,7 +66,7 @@
   },
   "nano-staged": {
     "*": "pnpm cspell --no-summary --no-progress --no-must-find-files --file-list",
-    "*.{json,jsonc,js,jsx,cjs,mjs,ts,tsx,cts,mts,html,svg,css,vue}": "pnpm biome check --fix --files-ignore-unknown=true --no-errors-on-unmatched"
+    "*.{json,jsonc,js,jsx,cjs,mjs,ts,tsx,cts,md,yaml,yml,mts,html,svg,css,vue}": "pnpm biome check --fix --files-ignore-unknown=true --no-errors-on-unmatched"
   },
-  "packageManager": "pnpm@12.4.1+sha512.2e81e399d73fe8390dab25e06aa788ab7a5908248d2f5a370f82b481147a6a7a367bf8048f9a6fdb6460f21a66f0542dedb8b94ca2c8723596741920b1656d4c"
+  "packageManager": "pnpm@12.11.2"
 }
