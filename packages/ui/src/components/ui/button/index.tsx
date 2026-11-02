@@ -1,5 +1,6 @@
 import { Button as ButtonPrimitive, type ButtonState } from '@base-ui/react/button'
-import { cva, type VariantProps } from '@qingshaner/ui/lib/cva'
+
+import { cva, type VariantProps } from '../../../lib/cva'
 
 type ButtonVariantsProps = VariantProps<typeof buttonVariants>
 

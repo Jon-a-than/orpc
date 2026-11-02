@@ -1,7 +1,7 @@
-import { cva, type VariantProps } from '@qingshaner/ui/lib/cva'
 import { cn } from 'cn'
 import { type ComponentProps, type ReactNode, useMemo } from 'react'
 
+import { cva, type VariantProps } from '../../../lib/cva'
 import { Label, type LabelProps } from '../label'
 import { Separator } from '../separator'
 
