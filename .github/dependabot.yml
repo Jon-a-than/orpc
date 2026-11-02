@@ -7,6 +7,10 @@ updates:
     commit-message:
       prefix: 'build'
       include: scope
+    groups:
+      routine-updates:
+        patterns: ['*']
+        update-types: ['minor', 'patch']
   - package-ecosystem: 'github-actions'
     directory: '/'
     schedule:
@@ -14,3 +18,7 @@ updates:
     commit-message:
       prefix: 'build'
       include: scope
+    groups:
+      routine-updates:
+        patterns: ['*']
+        update-types: ['minor', 'patch']

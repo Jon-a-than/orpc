@@ -34,25 +34,25 @@
     "preview": "node --enable-source-maps --env-file=.env ./.output/server/index.mjs"
   },
   "dependencies": {
-    "@electric-sql/pglite": "^0.5.11",
+    "@electric-sql/pglite": "^0.5.14",
     "@logtape/drizzle-orm": "^2.4.2",
     "@logtape/logtape": "^2.4.2",
     "@neondatabase/serverless": "^1.2.0",
-    "@orpc/openapi": "^2.0.0-beta.43",
-    "@orpc/server": "2.0.0-beta.36",
-    "@orpc/zod": "2.0.0-beta.36",
+    "@orpc/openapi": "2.0.0-beta.43",
+    "@orpc/server": "2.0.0-beta.43",
+    "@orpc/zod": "2.0.0-beta.43",
     "@qingshaner/contract": "workspace:*",
     "@qingshaner/utility-orpc": "^1.0.1",
-    "better-auth": "^1.7.12",
+    "better-auth": "^1.7.15",
     "drizzle-orm": "1.0.0-rc.4",
     "pg": "^8.23.1",
     "zod": "^4.6.7"
   },
   "devDependencies": {
     "@types/pg": "^8.23.1",
-    "c12": "4.0.0-rc.1",
+    "c12": "4.0.0-rc.4",
     "drizzle-kit": "1.0.0-rc.4",
-    "nitro": "3.0.260903-beta"
+    "nitro": "3.0.261029-rc"
   },
   "engines": {
     "node": "^22.18.0 || ^24.11.0 || >=26.0.0",

@@ -32,8 +32,8 @@
     "gen:error-code": "node ./scripts/generate-error-status-map.ts"
   },
   "dependencies": {
-    "@orpc/contract": "^2.0.0-beta.43",
-    "@orpc/openapi": "2.0.0-beta.36",
+    "@orpc/contract": "2.0.0-beta.43",
+    "@orpc/openapi": "2.0.0-beta.43",
     "zod": "^4.6.7"
   },
   "engines": {

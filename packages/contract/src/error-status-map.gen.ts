@@ -1,11 +1,7 @@
 // This file is auto-generated. Do not edit.
 import { COMMON_ERROR_STATUS_MAP } from '@orpc/openapi'
 
-export type ErrorCode =
-  | 'FORBIDDEN::TASK_NOT_AUTHOR'
-  | 'NOT_FOUND::TASK_NOT_FOUND'
-  | 'NOT_IMPLEMENTED::FEATURE_NOT_IMPLEMENTED'
-  | 'UNAUTHORIZED::NOT_SIGN_IN'
+export type ErrorCode = 'FORBIDDEN::TASK_NOT_AUTHOR' | 'NOT_FOUND::TASK_NOT_FOUND' | 'NOT_IMPLEMENTED::FEATURE_NOT_IMPLEMENTED' | 'UNAUTHORIZED::NOT_SIGN_IN'
 
 export const ErrorStatusMap = {
   ...COMMON_ERROR_STATUS_MAP,
